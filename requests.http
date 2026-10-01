@@ -1,0 +1,108 @@
+# Sample requests. Open in VS Code with the "REST Client" extension, or in a
+# JetBrains IDE, and click "Send Request" above each one.
+# (In PowerShell, use curl.exe, not curl — `curl` is an alias for Invoke-WebRequest.)
+
+@base = http://localhost:8080
+
+### Health (also shows the connection pool)
+GET {{base}}/health
+
+### ---------- Authors (reference, should all work) ----------
+
+GET {{base}}/authors
+
+###
+GET {{base}}/authors/1
+
+###
+POST {{base}}/authors
+Content-Type: application/json
+
+{"name": "Becky Chambers", "bio": "Wayfarers."}
+
+###
+PUT {{base}}/authors/7
+Content-Type: application/json
+
+{"name": "Becky Chambers", "bio": null}
+
+###
+DELETE {{base}}/authors/3
+
+###
+GET {{base}}/authors/1/stats
+
+### ---------- Books ----------
+
+GET {{base}}/books
+
+###
+GET {{base}}/books?page=1&limit=5
+
+###
+GET {{base}}/books?page=-1
+
+###
+GET {{base}}/books/1
+
+###
+GET {{base}}/books/9999
+
+###
+GET {{base}}/books/search?q=gods
+
+###
+GET {{base}}/books/search?q=%27%20OR%20%271%27%3D%271%27%20--
+
+###
+GET {{base}}/books/with-authors
+
+###
+POST {{base}}/books
+Content-Type: application/json
+
+{"author_id": 4, "title": "The Lifecycle of Software Objects", "isbn": "9781596063174", "published_year": 2010, "total_copies": 2}
+
+###
+POST {{base}}/books
+Content-Type: application/json
+
+this is not json
+
+###
+PUT {{base}}/books/6
+Content-Type: application/json
+
+{"author_id": 2, "title": "Dawn (Xenogenesis #1)", "isbn": "9780446603775", "published_year": 1987, "total_copies": 1}
+
+###
+DELETE {{base}}/books/9999
+
+###
+DELETE {{base}}/books/1
+
+### ---------- Members ----------
+
+GET {{base}}/members
+
+###
+POST {{base}}/members
+Content-Type: application/json
+
+{"email": "katherine@example.com", "full_name": "Katherine Johnson"}
+
+###
+GET {{base}}/members/1/loans?active=true
+
+### ---------- Loans ----------
+
+POST {{base}}/loans
+Content-Type: application/json
+
+{"book_id": 11, "member_id": 5}
+
+###
+POST {{base}}/loans/1/return
+
+###
+GET {{base}}/loans/overdue
